@@ -8,23 +8,23 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import Registration from './components/Registration';
 import Addrequest from './components/Addrequest';
+import PendingRequest from './components/pendingRequest';
 
 function App() {
   
   return (
     <>
-    
       <Navbar></Navbar>
-        <Routes>
-          <Route path='/' element={<Home></Home> } />
-          <Route path='Add' element={<Addrequest/>} />
-          <Route path='About' element={<About />} />
-          <Route path='Login' element={<Login />} />
-          <Route path='SignUp' element={<Registration />} />
-        </Routes>
-     
+      <Routes>
+        <Route path="/" element={<Home></Home>} />
+        <Route path="Add" element={<Addrequest />} />
+        <Route path="About" element={<About />} />
+        <Route path="Login" element={<Login />} />
+        <Route path="SignUp" element={<Registration />} />
+        <Route path="pendingRequest" element={<PendingRequest />} />
+      </Routes>
+
       <Footer></Footer>
-      
     </>
   );
 }

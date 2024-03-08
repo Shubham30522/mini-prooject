@@ -6,6 +6,8 @@ import { setToken } from "../slices/authSlice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 // import profileSlice from "../slices/profileSlice";
+import Cookies from "js-cookie";
+
 
 function Navbar() {
   const { token } = useSelector((state) => state.auth);
@@ -16,8 +18,14 @@ function Navbar() {
 
   const logoutHandler = () => {
     console.log("after redux step: ", user);
+
+    // Remove the token cookie
+    Cookies.remove("token");
+
     localStorage.removeItem("token");
+
     toast.success("Successfully logged out");
+
     dispatch(setToken(null));
   };
   return (
@@ -44,13 +52,25 @@ function Navbar() {
               </NavLink>
             </div>
 
-            {token !== null && user !== null && user.accountType === "hospital" && (
-              <div className="hover:text-green-400">
-                <NavLink className="nav-link" id="About" to="/Add">
-                  Add Request
-                </NavLink>
-              </div>
-            )}
+            {token !== null &&
+              user !== null &&
+              user.accountType === "hospital" && (
+                <div className="hover:text-green-400">
+                  <NavLink className="nav-link" id="About" to="/Add">
+                    Add Request
+                  </NavLink>
+                </div>
+              )}
+
+            {token !== null &&
+              user !== null &&
+              user.accountType === "donor" && (
+                <div className="hover:text-green-400">
+                  <NavLink className="nav-link" id="About" to="/pendingRequest">
+                    Pending Request
+                  </NavLink>
+                </div>
+              )}
 
             <div className="hover:text-green-400">
               <NavLink className="nav-link" id="About" to="/About">

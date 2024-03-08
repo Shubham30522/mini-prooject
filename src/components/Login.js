@@ -43,7 +43,6 @@ const Login = () => {
       console.log("Successful login: ",success);
       if (success) {
         toast.success("Login Successful");
-        navigate("/");
       } else {
         toast.error(response.data.message);
       }
@@ -54,7 +53,7 @@ const Login = () => {
         error.response
       );
     }
-    // navigate("/")
+
   }
 
   return (

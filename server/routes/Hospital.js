@@ -6,7 +6,7 @@ const getAllPendingRequest = require("../controllers/getAllPendingRequest");
 const { createRequest } = require("../controllers/Hospital");
 
 router.post("/createRequest", auth, isHospital, createRequest);
-router.get("/getAllPendingRequest", auth, getAllPendingRequest);
+router.get("/getAllPendingRequest", getAllPendingRequest);
 
 
 module.exports = router;

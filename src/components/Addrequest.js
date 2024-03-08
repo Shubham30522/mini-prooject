@@ -18,7 +18,7 @@ const requestSubmitHandler = async (requestData) => {
   console.log(updatedRequestData);
   const requestResponse = await createRequest(updatedRequestData);
   console.log((requestResponse ? requestResponse : null));
-  navigate("/");
+  navigate("/HospitalDashboard");
 }
   const {token} = useSelector(state => state.auth);
   return (

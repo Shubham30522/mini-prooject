@@ -2,13 +2,15 @@ import React from 'react'
 import { useForm } from "react-hook-form";
 import { createRequest } from '../services/operations/authAPI';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 // import authSlice from '../slices/authSlice';
-
 
 function Addrequest() {
 const { register, handleSubmit } = useForm();
+const navigate = useNavigate();
 
 const requestSubmitHandler = async (requestData) => {
+
   const updatedRequestData = {
     ...requestData,
     token,
@@ -16,6 +18,7 @@ const requestSubmitHandler = async (requestData) => {
   console.log(updatedRequestData);
   const requestResponse = await createRequest(updatedRequestData);
   console.log((requestResponse ? requestResponse : null));
+  navigate("/");
 }
   const {token} = useSelector(state => state.auth);
   return (

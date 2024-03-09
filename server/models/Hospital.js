@@ -21,7 +21,7 @@ const hospitalSchema = new mongoose.Schema({
     required: true,
   },
 
-  Requested: [
+  requested: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Request",

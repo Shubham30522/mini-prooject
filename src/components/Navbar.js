@@ -1,33 +1,41 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import microscope from "../assets/microscope.png";
 import { useSelector } from "react-redux";
 import { setToken } from "../slices/authSlice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-// import profileSlice from "../slices/profileSlice";
 import Cookies from "js-cookie";
+import { setUser } from "../slices/profileSlice"
+import { logout } from "../services/operations/authAPI";
+
 
 
 function Navbar() {
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.profile);
   // console.log(token);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  const logoutHandler = () => {
-    console.log("after redux step: ", user);
+  /* const logoutHandler = () => {
+    // Clear Redux state
+    dispatch(setToken(null));
+    // dispatch(setUser(null)); // Assuming you have a setUser(null) action
 
     // Remove the token cookie
     Cookies.remove("token");
 
+    // Clear local storage
     localStorage.removeItem("token");
 
-    toast.success("Successfully logged out");
+    // Optional: Clear any other client-side state related to the user
 
-    dispatch(setToken(null));
-  };
+    toast.success("Successfully logged out");
+  }; */
+
+
   return (
     <div className="j">
       <div className="bg-red-700 flex flex-row justify-center flex-wrap min-h-12">
@@ -125,7 +133,9 @@ function Navbar() {
                     to="/"
                   >
                     <button
-                      onClick={logoutHandler}
+                      onClick={() => {
+                        dispatch(logout(navigate));
+                      }}
                       className="w-[90px] border-2 border-gray-300 hover:bg-slate-400 rounded-lg hover:text-slate-800 "
                     >
                       Logout

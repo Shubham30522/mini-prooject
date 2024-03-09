@@ -4,8 +4,9 @@ import { endpoints } from "../apis";
 import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../../slices/authSlice";
 import { setUser } from "../../slices/profileSlice";
+import {toast} from "react-hot-toast";
 
-const { SIGNUP_API, LOGIN_API, CREATE_API } = endpoints;
+const { SIGNUP_API, LOGIN_API, CREATE_API, GET_ALL_HOSPITAL_REQUEST } = endpoints;
 
 export async function signUp(userSignUpData) {
   try {
@@ -54,3 +55,27 @@ export async function createRequest(requestData) {
     console.log("CREATE REQUEST API ERROR............", error);
   }
 }
+
+export function logout(navigate) {
+  return (dispatch) => {
+    dispatch(setToken(null));
+    dispatch(setUser(null));
+    // dispatch(resetCart())
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    toast.success("Logged Out");
+    navigate("/");
+  };
+}
+
+export const getAllHospitalRequests = async (hospitalId) => {
+  try {
+    // console.log("Printing hospitalId in authAPI File: ",hospitalId);
+    const response = await apiConnector("GET", GET_ALL_HOSPITAL_REQUEST + `/${hospitalId}`);
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching hospital requests:", error);
+    throw error;
+  }
+};

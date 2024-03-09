@@ -27,7 +27,7 @@ const PendingRequest = () => {
     <div>
       <div>
         {allReq.length === 0 ? (
-          <span className="loader"></span>
+          <p>There are no pending requests at this time.</p>
         ) : (
           allReq.map((req) => {
             return (
@@ -36,7 +36,7 @@ const PendingRequest = () => {
                   key={req._id}
                   className="flex bg-slate-500 mt-1"
                 >
-                  <p>Hospital Name: {req.Hospital_id.hospitalName}</p>
+                  <p>Hospital Name: {req.Hospital_id.hospitalName} </p> <br></br>
                   <p>Blood Group: {req.bloodGroup}</p>
                 </div>
                 <button onClick={() => console.log(req.bloodGroup)}>Click Here</button>

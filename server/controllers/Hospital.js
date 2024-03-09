@@ -203,11 +203,15 @@ exports.createRequest = async (req, res, next) => {
     console.log("Urgent need of This blood group: ", bloodGroup);
 
     // Finding the hospital which made the request and updating its requested array with the new request
-    const updatedHospital = await Hospital.findByIdAndUpdate(Hospital_id, {
-      $push: {
-        Requested: newRequest._id,
+    const updatedHospital = await Hospital.findByIdAndUpdate(
+      Hospital_id,
+      {
+        $push: {
+          Requested: newRequest.toObject(), // Push the entire request object
+        },
       },
-    });
+      { new: true }
+    );
 
     // Ensure that the update was successful
     if (!updatedHospital) {
@@ -220,7 +224,7 @@ exports.createRequest = async (req, res, next) => {
     // Return the new request and a success message
     res.status(200).json({
       success: true,
-      data: newRequest,
+      data: updatedHospital,
       message: "New Request Created Successfully",
     });
   } catch (error) {

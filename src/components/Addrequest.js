@@ -1,26 +1,32 @@
-import React from 'react'
+import React from "react";
 import { useForm } from "react-hook-form";
-import { createRequest } from '../services/operations/authAPI';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { createRequest } from "../services/operations/authAPI";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 // import authSlice from '../slices/authSlice';
+import {toast} from "react-hot-toast";
 
 function Addrequest() {
-const { register, handleSubmit } = useForm();
-const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
-const requestSubmitHandler = async (requestData) => {
-
-  const updatedRequestData = {
-    ...requestData,
-    token,
+  const requestSubmitHandler = async (requestData) => {
+    const updatedRequestData = {
+      ...requestData,
+      token,
+    };
+    console.log(updatedRequestData);
+    const requestResponse = await createRequest(updatedRequestData);
+    // console.log("Printing new request response in add request handler: ", requestResponse);
+    if (requestResponse.data.success) {
+      navigate("/HospitalDashboard");
+      toast.success("Request Added Successfully");
+    }
+    else{
+      toast.error(requestResponse.response.data.message);
+    }
   };
-  console.log(updatedRequestData);
-  const requestResponse = await createRequest(updatedRequestData);
-  console.log((requestResponse ? requestResponse : null));
-  navigate("/HospitalDashboard");
-}
-  const {token} = useSelector(state => state.auth);
+  const { token } = useSelector((state) => state.auth);
   return (
     <div className="relative flex m-auto justify-center items-center">
       <div className="w-[1100px] absolute flex m-auto justify-center items-center ">
@@ -33,15 +39,15 @@ const requestSubmitHandler = async (requestData) => {
             <div className="flex flex-col gap-6 mt-[70px]">
               <div className="flex gap-2">
                 <label className="ml-[110px] ">Hospital Name:</label>
-                <input type="text" {...register("name")} />
+                <input type="text" {...register("name")} required />
               </div>
               <div className="flex gap-2">
                 <label className="ml-[57px]">Required Blood Group:</label>
-                <input type="text" {...register("bloodGroup")} />
+                <input type="text" {...register("bloodGroup")} required />
               </div>
               <div className="flex gap-2">
                 <label className="ml-[57px]">Minimum Time Period:</label>
-                <input type="Date" {...register("time")} />
+                <input type="Date" {...register("time")} required />
               </div>
               <button className="mt-3 w-[70px] h-[40px] bg-blue-400 text-white rounded-lg m-auto">
                 submit
@@ -59,4 +65,4 @@ const requestSubmitHandler = async (requestData) => {
   );
 }
 
-export default Addrequest
+export default Addrequest;

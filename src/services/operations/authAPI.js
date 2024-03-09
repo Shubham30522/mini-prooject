@@ -53,6 +53,7 @@ export async function createRequest(requestData) {
     // console.log("Printing new hospital:", response.data.data);
     // console.log(" API RESPONSE............", response);
     setUser(response.data.data);
+    return response;
   } catch (error) {
     console.log("CREATE REQUEST API ERROR............", error);
   }

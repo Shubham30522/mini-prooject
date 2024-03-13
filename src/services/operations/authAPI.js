@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../../slices/authSlice";
 import { setUser } from "../../slices/profileSlice";
 import {toast} from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
 const { SIGNUP_API, LOGIN_API, CREATE_API, GET_ALL_HOSPITAL_REQUEST } = endpoints;
 
@@ -56,6 +57,7 @@ export async function createRequest(requestData) {
     return response;
   } catch (error) {
     console.log("CREATE REQUEST API ERROR............", error);
+    throw error;
   }
 }
 
@@ -71,10 +73,14 @@ export function logout(navigate) {
   };
 }
 
-export const getAllHospitalRequests = async (hospitalId) => {
+export const getAllHospitalRequests = async (requestData) => {
+  console.log("In auth api:", requestData);
   try {
-    // console.log("Printing hospitalId in authAPI File: ",hospitalId);
-    const response = await apiConnector("GET", GET_ALL_HOSPITAL_REQUEST + `/${hospitalId}`);
+    const response = await apiConnector(
+      "POST",
+      GET_ALL_HOSPITAL_REQUEST,
+      requestData
+    );
 
     return response.data;
   } catch (error) {

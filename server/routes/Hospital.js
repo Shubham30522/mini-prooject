@@ -8,7 +8,7 @@ const { createRequest } = require("../controllers/Hospital");
 
 router.post("/createRequest", auth, isHospital, createRequest);
 router.get("/getAllPendingRequest", getAllPendingRequest);
-router.get("/getAllHospitalRequest/:hospitalId", getAllHospitalRequest);
+router.post("/getAllHospitalRequest", getAllHospitalRequest);
 
 
 module.exports = router;

@@ -1,19 +1,21 @@
+const { useParams } = require("react-router-dom");
 const Hospital = require("../models/Hospital");
 const mongoose = require("mongoose");
 
 const getAllHospitalRequest = async (req, res) => {
   try {
-    const { hospitalId } = req.params; // Assuming you're using route parameters
+    // console.log("Printing whole request...", req);
+    const { userId } = req.body;
     console.log(
-      "Printing Hospital ID in getAllHospitalRequest Controller by req.params method: ",
-      hospitalId
+      "Printing Hospital ID in getAllHospitalRequest Controller by req.body method: ",
+      userId
     );
 
-    const hospital = await Hospital.findById(hospitalId).populate({
-      path: "requested", // Populate the 'requested' array
+    const hospital = await Hospital.findById(userId).populate({
+      path: "requested", // Capitalization fixed here
     });
 
-    console.log("Printing new hospital in controller:",  hospital);
+    console.log("Printing new hospital in controller:", hospital);
 
     if (!hospital) {
       return res.status(404).json({

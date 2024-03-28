@@ -24,7 +24,7 @@ const PendingRequest = () => {
 
   const agreeToDonateHandler = async (reqId) => {
     // console.log("Printing request id in agreeToDonateHandler: " + reqId);
-    const updatedRequest = await DonorAgreeToDonate(reqId);
+    await DonorAgreeToDonate(reqId);
 
     await fetchData(); // Fetch updated requests
   }
@@ -91,7 +91,7 @@ const PendingRequest = () => {
                         agreeToDonateHandler(requestData);
                       }}
                     >
-                      Click Here
+                      Want to Donate
                     </Button>
                   </ListGroup.Item>
 

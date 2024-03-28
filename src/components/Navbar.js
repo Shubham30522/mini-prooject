@@ -2,11 +2,11 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import microscope from "../assets/microscope.png";
 import { useSelector } from "react-redux";
-import { setToken } from "../slices/authSlice";
+// import { setToken } from "../slices/authSlice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-import Cookies from "js-cookie";
-import { setUser } from "../slices/profileSlice"
+// import Cookies from "js-cookie";
+// import { setUser } from "../slices/profileSlice"
 import { logout } from "../services/operations/authAPI";
 
 
@@ -76,6 +76,16 @@ function Navbar() {
                 <div className="hover:text-green-400">
                   <NavLink className="nav-link" id="About" to="/pendingRequest">
                     Pending Request
+                  </NavLink>
+                </div>
+              )}
+
+            {token !== null &&
+              user !== null &&
+              user.accountType === "hospital" && (
+                <div className="hover:text-green-400">
+                  <NavLink className="nav-link" id="Dashboard" to="/HospitalDashboard">
+                    Dashboard
                   </NavLink>
                 </div>
               )}

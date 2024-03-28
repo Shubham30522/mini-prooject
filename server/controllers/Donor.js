@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const otpGenerator = require("otp-generator");
 const mailSender = require("../utils/mailSender");
 require("dotenv").config();
+const Request = require("../models/Request");
 
 exports.donorSignup = async (req, res) => {
   try {
@@ -169,14 +170,15 @@ exports.donorLogin = async (req, res) => {
 };
 
 
-/* // agreeToDonate controller
-exports.agreeToDonate = async (req, res, next) => {
-  const { requestId } = req.params;
-  const donorId = req.user.id;
-
+// agreeToDonate controller
+exports.agreeToDonate = async (req, res) => {
+  // console.log("Printing req in aggreeToDonate controller: " + req);
+  const { reqId, donorId } = req.body;
+  // console.log("Printing id of request in aggreeToDonate controller: ", reqId);
+  // console.log("Printing donorId of request in aggreeToDonate controller: ", donorId);
   try {
     // Find the request by ID
-    const request = await Request.findById(requestId);
+    const request = await Request.findById(reqId);
 
     if (!request) {
       return res.status(404).json({
@@ -194,6 +196,7 @@ exports.agreeToDonate = async (req, res, next) => {
     // Return a success message
     res.status(200).json({
       success: true,
+      data: request,
       message: 'Donor agreed to donate successfully',
     });
   } catch (error) {
@@ -208,7 +211,7 @@ exports.agreeToDonate = async (req, res, next) => {
 
 
 // don'tWantToDonate controller
-exports.dontWantToDonate = async (req, res, next) => {
+/*exports.dontWantToDonate = async (req, res, next) => {
   const { requestId } = req.params;
   const donorId = req.user.id;
 
@@ -240,4 +243,4 @@ exports.dontWantToDonate = async (req, res, next) => {
       error: error.message,
     });
   }
-}; */
+};*/

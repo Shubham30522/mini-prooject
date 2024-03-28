@@ -16,8 +16,9 @@ const HospitalDashboard = () => {
     try {
       setLoading(true);
       const hospital = await getAllHospitalRequests({ userId: user._id });
-      setLoading(false);
       setHospital(hospital);
+      console.log("Printing hospital in hospital Dashboard: ", hospital);
+      setLoading(false);  
     } catch (error) {
       console.log("Error while fetching hospital information: " + error);
     }
@@ -33,14 +34,17 @@ const HospitalDashboard = () => {
       {loading ? (
         <div className="loader"></div>
       ) : (
-        <>
-          {hospital && (
-            <p>
-              Here we are going to show all the request made by hospital:{" "}
-              {hospital.name}
-            </p>
+        <div>
+          {!hospital && (
+            <p>Here we are going to show all the request made by hospital</p>
           )}
-        </>
+
+          {hospital && (
+            hospital.data.requested.map((req, index) => (
+              <p key={index}>{req.bloodGroup}</p>
+            ))
+          )}
+        </div>
       )}
     </div>
   );

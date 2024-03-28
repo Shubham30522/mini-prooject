@@ -7,7 +7,7 @@ import { setUser } from "../../slices/profileSlice";
 import {toast} from "react-hot-toast";
 import { useParams } from "react-router-dom";
 
-const { SIGNUP_API, LOGIN_API, CREATE_API, GET_ALL_HOSPITAL_REQUEST } = endpoints;
+const { SIGNUP_API, LOGIN_API, CREATE_API, GET_ALL_HOSPITAL_REQUEST, DONOR_AGREE_TO_DONATE } = endpoints;
 
 export async function signUp(userSignUpData) {
   try {
@@ -86,5 +86,17 @@ export const getAllHospitalRequests = async (requestData) => {
   } catch (error) {
     console.error("Error fetching hospital requests:", error);
     throw error;
+  }
+};
+
+export const DonorAgreeToDonate = async (reqId) => {
+  try {
+    const response = await apiConnector("POST", DONOR_AGREE_TO_DONATE, reqId);
+    return response;
+  } catch (error) {
+    console.log(
+      "Error while calling api Connector in DonorAgreeToDonate function of authApi file"
+    );
+    console.log("Error: ", error);
   }
 };

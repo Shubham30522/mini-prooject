@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import authSlice from '../slices/authSlice';
 import {toast} from "react-hot-toast";
+import { setUser } from "../slices/profileSlice";
 
 function Addrequest() {
   const { register, handleSubmit } = useForm();
@@ -17,7 +18,8 @@ function Addrequest() {
     };
     console.log(updatedRequestData);
     const requestResponse = await createRequest(updatedRequestData);
-    // console.log("Printing new request response in add request handler: ", requestResponse);
+    console.log("Printing new request response in add request handler: ", requestResponse);
+    // setUser(requestResponse.)
     if (requestResponse.data.success) {
       navigate("/HospitalDashboard");
       toast.success("Request Added Successfully");

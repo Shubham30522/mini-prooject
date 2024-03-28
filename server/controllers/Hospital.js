@@ -207,7 +207,7 @@ exports.createRequest = async (req, res, next) => {
       Hospital_id,
       {
         $push: {
-          Requested: newRequest.toObject(), // Push the entire request object
+          requested: newRequest.toObject(), // Push the entire request object
         },
       },
       { new: true }

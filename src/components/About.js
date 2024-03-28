@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import about from '../assets/about.png';
 import imp from '../assets/imp.jpg';
-function About() {
-
+function About(req,res) {
+    
     const [typingContent, setTypingContent] = useState('');
 
     useEffect(() => {

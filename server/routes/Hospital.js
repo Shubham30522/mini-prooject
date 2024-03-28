@@ -5,10 +5,12 @@ const getAllPendingRequest = require("../controllers/getAllPendingRequest");
 const   getAllHospitalRequest = require("../controllers/getAllHospitalRequest");
 
 const { createRequest } = require("../controllers/Hospital");
+const { agreeToDonate } = require("../controllers/Donor");
 
 router.post("/createRequest", auth, isHospital, createRequest);
 router.get("/getAllPendingRequest", getAllPendingRequest);
 router.post("/getAllHospitalRequest", getAllHospitalRequest);
+router.post("/agreetodonate", agreeToDonate);
 
 
 module.exports = router;

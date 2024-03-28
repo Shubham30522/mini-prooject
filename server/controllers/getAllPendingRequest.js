@@ -4,7 +4,7 @@ const Request = require("../models/Request");
 
 const getAllPendingRequest = async (req, res) => {
   try {
-    const requests = await Request.find({}).populate("Hospital_id");
+    const requests = await Request.find().populate("Hospital_id");
 
     res.status(200).json({
       success: true,

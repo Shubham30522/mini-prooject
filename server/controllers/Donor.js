@@ -189,6 +189,7 @@ exports.agreeToDonate = async (req, res) => {
 
     // Update the request with the donor's ID
     request.D_id = donorId;
+    request.status = "temporayFulfilled"
     await request.save();
 
     // Notify other donors about the update (if needed)

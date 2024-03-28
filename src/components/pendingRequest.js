@@ -26,6 +26,7 @@ const PendingRequest = () => {
     // console.log("Printing request id in agreeToDonateHandler: " + reqId);
     const updatedRequest = await DonorAgreeToDonate(reqId);
 
+    await fetchData(); // Fetch updated requests
   }
 
   useEffect(() => {
@@ -36,10 +37,10 @@ const PendingRequest = () => {
 
   return (
     <div className="flex flex-wrap justify-center">
-      {allReq.length === 0 ? (
+      {(allReq.length === 0 || allReq.filter((req) => req.status === "pending").length === 0) ? (
         <p>There are no pending requests at this time.</p>
       ) : (
-        allReq.map((req) => {
+        allReq.filter((req) => req.status === "pending").map((req) => {
           return (
             <div key={req._id} className="m-4">
               <Card

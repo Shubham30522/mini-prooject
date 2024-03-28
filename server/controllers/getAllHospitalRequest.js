@@ -11,9 +11,13 @@ const getAllHospitalRequest = async (req, res) => {
       userId
     );
 
-    const hospital = await Hospital.findById(userId).populate({
-      path: "requested", // Capitalization fixed here
-    });
+    const hospital = await Hospital.findById(userId)
+      .populate({
+        path: "requested",
+        populate: { path: "D_id" },
+      })
+      .exec();
+
 
     console.log("Printing new hospital in controller:", hospital);
 

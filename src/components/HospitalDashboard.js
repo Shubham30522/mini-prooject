@@ -18,7 +18,7 @@ const HospitalDashboard = () => {
       const hospital = await getAllHospitalRequests({ userId: user._id });
       setHospital(hospital);
       console.log("Printing hospital in hospital Dashboard: ", hospital);
-      setLoading(false);  
+      setLoading(false);
     } catch (error) {
       console.log("Error while fetching hospital information: " + error);
     }
@@ -39,11 +39,18 @@ const HospitalDashboard = () => {
             <p>Here we are going to show all the request made by hospital</p>
           )}
 
-          {hospital && (
-            hospital.data.requested.map((req, index) => (
-              <p key={index}>{req.bloodGroup}</p>
-            ))
-          )}
+          {hospital &&
+            hospital.data.requested.map((req, index) =>
+              req.D_id !== null ? (
+                <div>
+                  <p key={index}>
+                    {req.bloodGroup} Donor of this request: {req.D_id.donorName}
+                  </p>
+                </div>
+              ) : (
+                <p key={index}>{req.bloodGroup}</p>
+              )
+            )}
         </div>
       )}
     </div>
